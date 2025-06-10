@@ -32,6 +32,8 @@ TOKENS = load_tokens()
 prompt = []
 while True:
     newTokens = input("You: ").split(" ")
+    if "[clear]" in newTokens:
+        prompt = []
     prompt.extend(newTokens)
     print(" ".join(newTokens), end=" ")
     token = " "
