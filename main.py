@@ -18,6 +18,8 @@ def predict_next(past, tokens):
             depth += 1
         else:
             depth = 0
+            if depth > 0:
+                occurences[token] = occurences.get(token, 0) + (depth/len(past))
     if not occurences:
         if len(past) == 1:
             return ""
