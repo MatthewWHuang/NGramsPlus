@@ -1,10 +1,5 @@
 import random
-
-def tokenize(text):
-    return text.replace(". ", " . ").replace(".\n", " .\n").split(" ")
-
-def join(tokens):
-    return " ".join(tokens).replace(" .", ".")
+from tokens import tokenize, join
 
 def load_tokens():
     with open("data.txt", "r") as file:
