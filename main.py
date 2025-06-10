@@ -1,10 +1,15 @@
 import random
 
+def tokenize(text):
+    return text.split(" ")
+
+def join(tokens):
+    return " ".join(tokens)
 
 def load_tokens():
     with open("data.txt", "r") as file:
         data = file.read()
-        return data.split(" ")
+        return tokenize(data)
     
 def predict_next(past, tokens):
     past = list(map(lambda x: x.lower(), past))
@@ -31,11 +36,11 @@ TOKENS = load_tokens()
 
 prompt = []
 while True:
-    newTokens = input("You: ").split(" ")
+    newTokens = tokenize(input("You: "))
     if "[clear]" in newTokens:
         prompt = []
     prompt.extend(newTokens)
-    print(" ".join(newTokens), end=" ")
+    print(join(newTokens), end=" ")
     token = " "
     while token and not (token.endswith(".")):
         token = predict_next(prompt, TOKENS)
