@@ -1,10 +1,10 @@
 import random
 
 def tokenize(text):
-    return text.split(" ")
+    return text.replace(". ", " . ").replace(".\n", " .\n").split(" ")
 
 def join(tokens):
-    return " ".join(tokens)
+    return " ".join(tokens).replace(" .", ".")
 
 def load_tokens():
     with open("data.txt", "r") as file:
@@ -40,13 +40,13 @@ while True:
     if "[clear]" in newTokens:
         prompt = []
     prompt.extend(newTokens)
-    print(join(newTokens), end=" ")
     token = " "
+    response = newTokens
     while token and not (token.endswith(".")):
         token = predict_next(prompt, TOKENS)
         if "\n" in token:
             print(token.split("\n")[0], "", end="")
             break
-        print(token, "", end="")
+        response.append(token)
         prompt.append(token)
-    print()
+    print(join(response))
